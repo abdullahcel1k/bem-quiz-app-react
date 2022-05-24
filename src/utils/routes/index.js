@@ -8,7 +8,7 @@ import Home from "../../containers/Home";
 import Quiz from "../../containers/Quiz/Quiz";
 import Dashboard from "../../containers/Dashboard";
 import NotFound from "../../containers/NotFound";
-import SignInUp from "../../containers/SignInUp";
+import SignInUp from "../../containers/SignInUp/SignInUp";
 import Layout from "../../containers/Layout";
 
 const PageRoutes = () => {
