@@ -1,14 +1,10 @@
 import logo from './logo.svg';
 import './App.scss';
+import PageRoutes from './utils/routes';
 
 function App() {
   return (
-    <div className="App">
-      <div className='alert alert-danger'>
-        Hello Wold!
-      </div>
-
-    </div>
+    <PageRoutes />
   );
 }
 
