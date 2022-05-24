@@ -6,10 +6,12 @@ import {
 import React from 'react'
 import Home from "../../containers/Home";
 import Quiz from "../../containers/Quiz/Quiz";
-import Dashboard from "../../containers/Dashboard";
+import DashboardLayout from "../../containers/DashboardLayout";
 import NotFound from "../../containers/NotFound";
 import SignInUp from "../../containers/SignInUp/SignInUp";
 import Layout from "../../containers/Layout";
+import Dashboard from "../../containers/Dashboard";
+import User from "../../containers/User";
 
 const PageRoutes = () => {
  return (
@@ -20,7 +22,11 @@ const PageRoutes = () => {
      <Route path="/quiz/:slug" element={<Quiz />} />
      <Route path="/sign-in-up" element={<SignInUp />} />
     </Route>
-    <Route path="/dashboard" element={<Dashboard />} />
+    <Route element={<DashboardLayout />}>
+     <Route path="/admin" element={<Dashboard />} />
+     <Route path="/admin/users" element={<User />} />
+    </Route>
+
     <Route path="*" element={<NotFound />} />
    </Routes>
   </Router>
