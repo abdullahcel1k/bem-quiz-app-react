@@ -5,9 +5,16 @@ import { SignInModel } from '../../utils/forms/sigin-in/initialModel';
 import { SignInValidationScheme } from '../../utils/forms/sigin-in/validationScheme';
 import { SignUpModel } from '../../utils/forms/sign-up/initialModel';
 import { SignUpValidationScheme } from '../../utils/forms/sign-up/validationScheme';
+import { useDispatch } from 'react-redux';
+import { authCreateToken } from '../../utils/services/auth';
 
 
 const SignInUp = () => {
+  const dispatch = useDispatch();
+  const _login = (loginModel) => {
+    dispatch(authCreateToken(loginModel));
+  };
+
   return (
     <div className='col-6 offset-3 mt-5'>
       <nav>
@@ -22,7 +29,7 @@ const SignInUp = () => {
             initialValues={SignInModel}
             validationSchema={SignInValidationScheme}
             onSubmit={(values, { setSubmitting, resetForm }) => {
-              console.log("başarılı!")
+              _login(values);
             }}
           >{({ isSubmitting, handleSubmit,
             errors, touched, handleChange }) => (
@@ -90,7 +97,7 @@ const SignInUp = () => {
                   <input type="checkbox" value="remember-me" /> Remember me
                 </label>
               </div> */}
-              <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+              <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
               <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
             </Form>
           )}</Formik>
