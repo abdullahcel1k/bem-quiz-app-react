@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
  return (
   <>
   <Header />
-   <div className='container'>
+   <div className='container-fluid'>
     <Outlet />
    </div>
    {/* <Footer /> */}
