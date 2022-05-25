@@ -16,6 +16,7 @@ import User from "../../containers/Dashboard/User";
 import { useSelector } from "react-redux";
 import { AuthEnums } from "../enums/auth";
 import AdminQuiz from "../../containers/Dashboard/AdminQuiz";
+import QuizDetail from "../../containers/Dashboard/AdminQuiz/QuizDetail";
 
 const RequireAuth = ({ children }) => {
   const { token } = useSelector((state) => state.auth);
@@ -64,6 +65,7 @@ const PageRoutes = () => {
         >
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin/quiz" element={<AdminQuiz />} />
+          <Route path="/admin/quiz/:id" element={<QuizDetail />} />
           <Route path="/admin/users" element={<User />} />
         </Route>
 

@@ -43,7 +43,18 @@ const Table = ({ columns, data }) => {
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                return (
+                  <td
+                    {...cell.getCellProps({
+                      style: {
+                        minWidth: cell.column.minWidth,
+                        width: cell.column.width,
+                      },
+                    })}
+                  >
+                    {cell.render("Cell")}
+                  </td>
+                );
               })}
             </tr>
           );

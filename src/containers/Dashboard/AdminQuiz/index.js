@@ -1,8 +1,10 @@
 import { Form, Formik } from "formik";
 import React from "react";
-import Table from "../../components/Table";
-import { AdminQuizModel } from "../../utils/forms/admin-quiz/initialModel";
-import { AdminQuizValidationScheme } from "../../utils/forms/admin-quiz/validationScheme";
+import Table from "../../../components/Table";
+import { AdminQuizModel } from "../../../utils/forms/admin-quiz/initialModel";
+import { AdminQuizValidationScheme } from "../../../utils/forms/admin-quiz/validationScheme";
+import { FaPlusCircle, FaEdit, FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const AdminQuiz = () => {
   const columns = React.useMemo(
@@ -28,12 +30,26 @@ const AdminQuiz = () => {
         Header: "",
         accessor: "edit",
         Cell: (props) => (
-          <div className="d-flex">
-            <button className="btn btn-info">+</button>
-            <button className="btn btn-warning">Düzenle</button>
-            <button className="btn btn-danger">Sil</button>
-          </div>
+          <>
+            <div className="d-flex float-end">
+              <Link
+                className="btn btn-info"
+                to={"/admin/quiz/" + props.row.values.id}
+              >
+                <FaPlusCircle />
+              </Link>
+              <button className="btn btn-warning ms-3">
+                <FaEdit />
+              </button>
+              <button className="btn btn-danger ms-3">
+                <FaTrashAlt />
+              </button>
+            </div>
+          </>
         ),
+        maxWidth: 70,
+        minWidth: 50,
+        width: 60,
       },
     ],
     []
@@ -41,27 +57,27 @@ const AdminQuiz = () => {
 
   const data = [
     {
-      id: 1,
+      id: 5,
       quizImage: "/images/quiz.webp",
       quizName: "Sınav 1",
       totalQuestion: 9,
     },
     {
-      id: 1,
+      id: 6,
       quizImage: "/images/quiz.webp",
       quizName: "Sınav 1",
       totalQuestion: 11,
     },
 
     {
-      id: 1,
+      id: 3,
       quizImage: "/images/quiz.webp",
       quizName: "Sınav 1",
       totalQuestion: 16,
     },
 
     {
-      id: 1,
+      id: 4,
       quizImage: "/images/quiz.webp",
       quizName: "Sınav 1",
       totalQuestion: 24,
