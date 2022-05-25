@@ -11,10 +11,11 @@ import DashboardLayout from "../../containers/DashboardLayout";
 import NotFound from "../../containers/NotFound";
 import SignInUp from "../../containers/SignInUp/SignInUp";
 import Layout from "../../containers/Layout";
-import Dashboard from "../../containers/Dashboard";
-import User from "../../containers/User";
+import Dashboard from "../../containers/Dashboard/Dashboard";
+import User from "../../containers/Dashboard/User";
 import { useSelector } from "react-redux";
 import { AuthEnums } from "../enums/auth";
+import AdminQuiz from "../../containers/Dashboard/AdminQuiz";
 
 const RequireAuth = ({ children }) => {
   const { token } = useSelector((state) => state.auth);
@@ -26,16 +27,16 @@ const RequireAuth = ({ children }) => {
 };
 
 const RequireAdminAuth = ({ children }) => {
- const { role } = useSelector((state) => state.auth);
+  const { role } = useSelector((state) => state.auth);
 
- if (role != AuthEnums.ADMIN) {
-   return <Navigate to="/" replace />;
- }
- return children;
+  if (role != AuthEnums.ADMIN) {
+    return <Navigate to="/" replace />;
+  }
+  return children;
 };
 
 const PageRoutes = () => {
- const { token } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   return (
     <Router>
       <Routes>
@@ -49,7 +50,10 @@ const PageRoutes = () => {
               </RequireAuth>
             }
           />
-          <Route path="/sign-in-up" element={!token ? <SignInUp /> : <Navigate to="/" />} />
+          <Route
+            path="/sign-in-up"
+            element={!token ? <SignInUp /> : <Navigate to="/" />}
+          />
         </Route>
         <Route
           element={
@@ -59,6 +63,7 @@ const PageRoutes = () => {
           }
         >
           <Route path="/admin" element={<Dashboard />} />
+          <Route path="/admin/quiz" element={<AdminQuiz />} />
           <Route path="/admin/users" element={<User />} />
         </Route>
 
