@@ -1,6 +1,7 @@
 import { FieldArray, Form, Formik, useFormikContext } from "formik";
 import React from "react";
 import { useParams } from "react-router-dom";
+import Table from "../../../components/Table";
 
 const QuizDetail = () => {
   const { id } = useParams();
@@ -24,27 +25,54 @@ const QuizDetail = () => {
         >
           {({ isSubmitting, handleSubmit, errors, touched, handleChange }) => (
             <Form>
-              {values.answers.map((contact, index) => (
-                <div key={contact.answer + index}>
-                  {". " + contact.answer}
-                  <br />
-                </div>
-              ))}
-              <input
-                type="text"
-                name="text"
-                value={values.text}
-                onChange={handleChange}
-              />
-              <input
-                type="checkbox"
-                name="isCorrect"
-                value={values.isCorrect}
-                onChange={handleChange}
-              />
-              <button type="button" onClick={handleSubmit}>
+              <div class="mb-3">
+                <label class="form-label" for="isCorrectCbox">
+                  Cevap Metni
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="text"
+                  value={values.text}
+                  onChange={handleChange}
+                  autoComplete="off"
+                />
+              </div>
+              <div class="form-check">
+                <input
+                  id="isCorrectCbox"
+                  class="form-check-input"
+                  type="checkbox"
+                  name="isCorrect"
+                  value={values.isCorrect}
+                  onChange={handleChange}
+                />
+                <label class="form-check-label" for="isCorrectCbox">
+                  Doğru Cevap
+                </label>
+              </div>
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={handleSubmit}
+              >
                 Cevabı Ekle
               </button>
+
+              <h3 className="mt-3">Cevaplar</h3>
+              <hr className="line" />
+              <ul className="list-group">
+                {values.answers.map((answer, index) => (
+                  <li
+                    className={`list-group-item ${
+                      answer.isCorrect ? "bg-success" : "bg-light"
+                    }`}
+                    key={answer + index}
+                  >
+                    {answer.text}
+                  </li>
+                ))}
+              </ul>
             </Form>
           )}
         </Formik>
@@ -55,15 +83,22 @@ const QuizDetail = () => {
   const Question = ({ values, handleChange }) => {
     return (
       <>
-        <input
-          type="text"
-          name="question"
-          value={values.question}
-          onChange={handleChange}
-        />
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">
+            Soru
+          </label>
+          <textarea
+            type="text"
+            class="form-control"
+            name="question"
+            value={values.question}
+            onChange={handleChange}
+          ></textarea>
+        </div>
         <div key={values.question}>
           <br />
-          <span>{values.question}'s answers:</span>
+          <h3>Cevap Ekle</h3>
+          <hr className="line" />
           <FieldArray name={`answers`}>
             {(arrayHelpers) => (
               <>
@@ -77,6 +112,61 @@ const QuizDetail = () => {
     );
   };
 
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "#",
+        accessor: "id",
+      },
+      {
+        Header: "Soru Metni",
+        accessor: "question",
+      },
+      {
+        Header: "Cevap Sayısı",
+        accessor: "answerCount",
+      },
+    ],
+    []
+  );
+
+  const data = [
+    {
+      id: 5,
+      question:
+        "Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1",
+      answerCount: 5,
+    },
+
+    {
+      id: 5,
+      question:
+        "Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1",
+      answerCount: 5,
+    },
+
+    {
+      id: 5,
+      question:
+        "Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1",
+      answerCount: 5,
+    },
+
+    {
+      id: 5,
+      question:
+        "Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1",
+      answerCount: 5,
+    },
+
+    {
+      id: 5,
+      question:
+        "Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1",
+      answerCount: 5,
+    },
+  ];
+
   return (
     <>
       <div className="row">
@@ -89,6 +179,10 @@ const QuizDetail = () => {
             Soru Ekle
           </button>
         </div>
+
+        <div className="col-12 mt-5">
+          <Table columns={columns} data={data} />
+        </div>
         <div
           class="modal fade"
           id="questionFormModal"
@@ -98,11 +192,11 @@ const QuizDetail = () => {
           aria-labelledby="questionFormModalLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-xl modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="questionFormModalLabel">
-                  Modal title
+                  Sınav'a Soru Ekle
                 </h5>
                 <button
                   type="button"
@@ -116,16 +210,7 @@ const QuizDetail = () => {
                 enableReinitialize={true}
               >
                 {({ values, handleChange }) => (
-                  <Form
-                    onChange={(event) => {
-                      console.log(
-                        "name",
-                        event.target.name,
-                        " | value",
-                        event.target.value
-                      );
-                    }}
-                  >
+                  <Form>
                     <div class="modal-body">
                       <Question values={values} handleChange={handleChange} />
                     </div>

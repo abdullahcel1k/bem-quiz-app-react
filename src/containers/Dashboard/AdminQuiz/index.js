@@ -119,7 +119,7 @@ const AdminQuiz = () => {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="quizFormModalLabel">
-                Modal title
+                Sınav Ekle
               </h5>
               <button
                 type="button"
