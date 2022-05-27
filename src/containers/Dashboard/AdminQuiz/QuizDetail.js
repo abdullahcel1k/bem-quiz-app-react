@@ -188,7 +188,7 @@ const QuizDetail = () => {
           id="questionFormModal"
           data-bs-backdrop="static"
           data-bs-keyboard="false"
-          tabindex="-1"
+          tabIndex="-1"
           aria-labelledby="questionFormModalLabel"
           aria-hidden="true"
         >

@@ -1,4 +1,5 @@
 export const AdminQuizModel = {
-  image: "",
+  imgSource: "",
   name: "",
+  description: ""
 };

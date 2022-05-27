@@ -5,6 +5,7 @@ import { AdminQuizModel } from "../../../utils/forms/admin-quiz/initialModel";
 import { AdminQuizValidationScheme } from "../../../utils/forms/admin-quiz/validationScheme";
 import { FaPlusCircle, FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import FileUploader from "../../../components/FileUploader";
 
 const AdminQuiz = () => {
   const columns = React.useMemo(
@@ -111,7 +112,7 @@ const AdminQuiz = () => {
         id="quizFormModal"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="quizFormModalLabel"
         aria-hidden="true"
       >
@@ -139,33 +140,40 @@ const AdminQuiz = () => {
                 errors,
                 touched,
                 handleChange,
+                setFieldValue,
               }) => (
                 <Form>
                   <div class="modal-body">
-                    <div class="form-floating">
-                      <input
-                        type="file"
-                        name="image"
-                        onChange={handleChange}
-                        class="form-control"
-                        id="imageInput"
+                    <div class="mb-3">
+                      <FileUploader
+                        id="imgSource"
+                        label="Image"
+                        fieldName="imgSource"
+                        setFieldValue={setFieldValue}
                       />
-                      <label for="imageInput">Sınav Kapak Resmi</label>
                       {errors.image && touched.image ? (
                         <small>{errors.image}</small>
                       ) : null}
                     </div>
-                    <div class="form-floating">
+                    <div class="mb-3">
+                      <label className="form-label">Sınav Adı</label>
                       <input
                         type="text"
                         name="name"
                         onChange={handleChange}
                         class="form-control"
                       />
-                      <label>Sınav Adı</label>
                       {errors.name && touched.name ? (
                         <small>{errors.name}</small>
                       ) : null}
+                    </div>
+                    <div className="">
+                      <label className="form-label">Açıklama</label>
+                      <textarea
+                        name="description"
+                        onChange={handleChange}
+                        class="form-control"
+                      ></textarea>
                     </div>
                   </div>
                   <div class="modal-footer">
