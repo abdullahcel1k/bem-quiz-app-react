@@ -1,28 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AuthEnums } from "../../utils/enums/auth";
 import { authCreateToken } from "../../utils/services/auth";
 
 const _authLogout = (state, action) => {
- state.token = undefined;
+  state.token = undefined;
 };
 
 const authSlice = createSlice({
- name: "auth",
- initialState: {
-  token: undefined
- },
- reducers: {
-  authLogout: _authLogout
- },
- extraReducers: {
-  [authCreateToken.fulfilled]: (state, action) => {
-   state.token = action.payload;
-   state.role = AuthEnums.ADMIN;
+  name: "auth",
+  initialState: {
+    token: undefined,
+    role: undefined,
   },
-  [authCreateToken.rejected]: (state, action) => {
-   state.token = undefined;
-  }
- }
+  reducers: {
+    authLogout: _authLogout,
+  },
+  extraReducers: {
+    [authCreateToken.fulfilled]: (state, action) => {
+      state.token = action.payload.token;
+      state.role = action.payload.role;
+    },
+    [authCreateToken.rejected]: (state, action) => {
+      state.token = undefined;
+      state.role = undefined;
+    },
+  },
 });
 
 export const { authLogout } = authSlice.actions;

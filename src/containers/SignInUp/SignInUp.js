@@ -24,7 +24,7 @@ const SignInUp = () => {
         </div>
       </nav>
       <div className="tab-content" id="nav-tabContent">
-        <div className="tab-pane fade show active" id="nav-signin" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+        <div className="tab-pane fade show active" id="nav-signin" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex="0">
           <Formik
             initialValues={SignInModel}
             validationSchema={SignInValidationScheme}
@@ -34,31 +34,31 @@ const SignInUp = () => {
           >{({ isSubmitting, handleSubmit,
             errors, touched, handleChange }) => (
             <Form>
-              <img class="mb-4" src="/images/quiz.webp" alt="" width="72" height="57" />
-              <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+              <img className="mb-4" src="/images/quiz.webp" alt="" width="72" height="57" />
+              <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
 
-              <div class="form-floating">
-                <input type="text" name='email' onChange={handleChange} class="form-control" id="floatingInput" placeholder="name@example.com" />
+              <div className="form-floating">
+                <input type="text" name='email' onChange={handleChange} className="form-control" id="floatingInput" placeholder="name@example.com" />
                 <label for="floatingInput">Email address</label>
                 {errors.email && touched.email ? <small >{errors.email}</small> : null}
               </div>
-              <div class="form-floating">
-                <input type="password" name="password" onChange={handleChange} class="form-control" id="floatingPassword" placeholder="Password" />
+              <div className="form-floating">
+                <input type="password" name="password" onChange={handleChange} className="form-control" id="floatingPassword" placeholder="Password" />
                 <label for="floatingPassword">Password</label>
                 {errors.password && touched.password ? <small>{errors.password}</small> : null}
               </div>
 
-              {/* <div class="checkbox mb-3">
+              {/* <div className="checkbox mb-3">
                 <label>
                   <input type="checkbox" value="remember-me" /> Remember me
                 </label>
               </div> */}
-              <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-              <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
+              <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+              <p className="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
             </Form>
           )}</Formik>
         </div>
-        <div className="tab-pane fade" id="nav-signup" role="tabpanel" aria-labelledby="nav-signup-tab" tabindex="0">
+        <div className="tab-pane fade" id="nav-signup" role="tabpanel" aria-labelledby="nav-signup-tab" tabIndex="1">
           <Formik
             initialValues={SignUpModel}
             validationSchema={SignUpValidationScheme}
@@ -68,37 +68,37 @@ const SignInUp = () => {
           >{({ isSubmitting, handleSubmit,
             errors, touched, handleChange }) => (
             <Form>
-              <img class="mb-4" src="/images/quiz.webp" alt="" width="72" height="57" />
-              <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+              <img className="mb-4" src="/images/quiz.webp" alt="" width="72" height="57" />
+              <h1 className="h3 mb-3 fw-normal">Please sign up</h1>
 
-              <div class="form-floating">
-                <input type="text" name='fullName' onChange={handleChange} class="form-control" id="floatingInput" />
+              <div className="form-floating">
+                <input type="text" name='fullName' onChange={handleChange} className="form-control" id="floatingInput" />
                 <label for="floatingInput">Full Name</label>
                 {errors.fullName && touched.fullName ? <small >{errors.fullName}</small> : null}
               </div>
-              <div class="form-floating">
-                <input type="text" name='email' onChange={handleChange} class="form-control" id="floatingInput" placeholder="name@example.com" />
+              <div className="form-floating">
+                <input type="text" name='email' onChange={handleChange} className="form-control" id="floatingInput" placeholder="name@example.com" />
                 <label for="floatingInput">Email address</label>
                 {errors.email && touched.email ? <small >{errors.email}</small> : null}
               </div>
-              <div class="form-floating">
-                <input type="password" name="password" onChange={handleChange} class="form-control" id="floatingPassword" placeholder="Password" />
+              <div className="form-floating">
+                <input type="password" name="password" onChange={handleChange} className="form-control" id="floatingPassword" placeholder="Password" />
                 <label for="floatingPassword">Password</label>
                 {errors.password && touched.password ? <small>{errors.password}</small> : null}
               </div>
-              <div class="form-floating">
-                <input type="password" name="rePassword" onChange={handleChange} class="form-control" id="floatingPassword" placeholder="Re-Password" />
+              <div className="form-floating">
+                <input type="password" name="rePassword" onChange={handleChange} className="form-control" id="floatingPassword" placeholder="Re-Password" />
                 <label for="floatingPassword">Re-Password</label>
                 {errors.rePassword && touched.rePassword ? <small>{errors.rePassword}</small> : null}
               </div>
 
-              {/* <div class="checkbox mb-3">
+              {/* <div className="checkbox mb-3">
                 <label>
                   <input type="checkbox" value="remember-me" /> Remember me
                 </label>
               </div> */}
-              <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
-              <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
+              <button className="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+              <p className="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
             </Form>
           )}</Formik>
         </div>

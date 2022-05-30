@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   FaEdit,
   FaTrashAlt,
@@ -7,6 +7,7 @@ import {
   FaWindowClose,
 } from "react-icons/fa";
 import Table from "../../components/Table";
+import { Get } from "../../utils/helpers/requestHelpers";
 
 const User = () => {
   const columns = React.useMemo(
@@ -126,6 +127,15 @@ const User = () => {
       status: false,
     },
   ];
+
+  const fetchData = async () => {
+    const result = await Get("Users");
+    console.log(result);
+  };
+
+  useEffect(() => {
+    fetchData();
+  });
   return (
     <div className="row">
       <div className="col-12 mt-5">
@@ -142,7 +152,7 @@ const User = () => {
       </div>
 
       <div
-        class="modal fade"
+        className="modal fade"
         id="userFormModal"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
@@ -150,15 +160,15 @@ const User = () => {
         aria-labelledby="userFormModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="userFormModalLabel">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="userFormModalLabel">
                 Kullanıcı Ekle
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
@@ -169,17 +179,17 @@ const User = () => {
             >
               {({ values, handleChange }) => (
                 <Form>
-                  <div class="modal-body">
-                    <div class="mb-3">
-                      <label class="form-label">Ad Soyad</label>
-                      <input type="text" class="form-control" />
+                  <div className="modal-body">
+                    <div className="mb-3">
+                      <label className="form-label">Ad Soyad</label>
+                      <input type="text" className="form-control" />
                     </div>
-                    <div class="mb-3">
-                      <label class="form-label">Email</label>
-                      <input type="email" class="form-control" />
+                    <div className="mb-3">
+                      <label className="form-label">Email</label>
+                      <input type="email" className="form-control" />
                     </div>
-                    <div class="mb-3">
-                      <label class="form-label">Yetki</label>
+                    <div className="mb-3">
+                      <label className="form-label">Yetki</label>
                       <select className="form-select">
                         <option value={-1}>Lütfen bir yetki seçin</option>
                         <option value={0}>Kullanıcı</option>
@@ -187,15 +197,15 @@ const User = () => {
                       </select>
                     </div>
                   </div>
-                  <div class="modal-footer">
+                  <div className="modal-footer">
                     <button
                       type="button"
-                      class="btn btn-secondary"
+                      className="btn btn-secondary"
                       data-bs-dismiss="modal"
                     >
                       Close
                     </button>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" className="btn btn-primary">
                       Kaydet
                     </button>
                   </div>

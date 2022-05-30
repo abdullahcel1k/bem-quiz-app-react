@@ -14,9 +14,9 @@ import Layout from "../../containers/Layout";
 import Dashboard from "../../containers/Dashboard/Dashboard";
 import User from "../../containers/Dashboard/User";
 import { useSelector } from "react-redux";
-import { AuthEnums } from "../enums/auth";
 import AdminQuiz from "../../containers/Dashboard/AdminQuiz";
 import QuizDetail from "../../containers/Dashboard/AdminQuiz/QuizDetail";
+import { UserRole } from "../enums/auth";
 
 const RequireAuth = ({ children }) => {
   const { token } = useSelector((state) => state.auth);
@@ -30,7 +30,7 @@ const RequireAuth = ({ children }) => {
 const RequireAdminAuth = ({ children }) => {
   const { role } = useSelector((state) => state.auth);
 
-  if (role != AuthEnums.ADMIN) {
+  if (role != UserRole.ADMIN) {
     return <Navigate to="/" replace />;
   }
   return children;

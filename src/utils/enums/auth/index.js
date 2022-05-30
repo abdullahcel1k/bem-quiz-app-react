@@ -1,4 +1,4 @@
-export const AuthEnums = Object.freeze({
-  ADMIN: "Admin",
-  USER: "User",
+export const UserRole = Object.freeze({
+  USER: 0,
+  ADMIN: 1,
 });

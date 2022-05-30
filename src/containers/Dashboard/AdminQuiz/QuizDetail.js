@@ -25,29 +25,29 @@ const QuizDetail = () => {
         >
           {({ isSubmitting, handleSubmit, errors, touched, handleChange }) => (
             <Form>
-              <div class="mb-3">
-                <label class="form-label" for="isCorrectCbox">
+              <div className="mb-3">
+                <label className="form-label" for="isCorrectCbox">
                   Cevap Metni
                 </label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   name="text"
                   value={values.text}
                   onChange={handleChange}
                   autoComplete="off"
                 />
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
                   id="isCorrectCbox"
-                  class="form-check-input"
+                  className="form-check-input"
                   type="checkbox"
                   name="isCorrect"
                   value={values.isCorrect}
                   onChange={handleChange}
                 />
-                <label class="form-check-label" for="isCorrectCbox">
+                <label className="form-check-label" for="isCorrectCbox">
                   Doğru Cevap
                 </label>
               </div>
@@ -83,13 +83,13 @@ const QuizDetail = () => {
   const Question = ({ values, handleChange }) => {
     return (
       <>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">
+        <div className="mb-3">
+          <label for="exampleFormControlInput1" className="form-label">
             Soru
           </label>
           <textarea
             type="text"
-            class="form-control"
+            className="form-control"
             name="question"
             value={values.question}
             onChange={handleChange}
@@ -184,7 +184,7 @@ const QuizDetail = () => {
           <Table columns={columns} data={data} />
         </div>
         <div
-          class="modal fade"
+          className="modal fade"
           id="questionFormModal"
           data-bs-backdrop="static"
           data-bs-keyboard="false"
@@ -192,15 +192,15 @@ const QuizDetail = () => {
           aria-labelledby="questionFormModalLabel"
           aria-hidden="true"
         >
-          <div class="modal-xl modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="questionFormModalLabel">
+          <div className="modal-xl modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="questionFormModalLabel">
                   Sınav'a Soru Ekle
                 </h5>
                 <button
                   type="button"
-                  class="btn-close"
+                  className="btn-close"
                   data-bs-dismiss="modal"
                   aria-label="Close"
                 ></button>
@@ -211,18 +211,18 @@ const QuizDetail = () => {
               >
                 {({ values, handleChange }) => (
                   <Form>
-                    <div class="modal-body">
+                    <div className="modal-body">
                       <Question values={values} handleChange={handleChange} />
                     </div>
-                    <div class="modal-footer">
+                    <div className="modal-footer">
                       <button
                         type="button"
-                        class="btn btn-secondary"
+                        className="btn btn-secondary"
                         data-bs-dismiss="modal"
                       >
                         Close
                       </button>
-                      <button type="submit" class="btn btn-primary">
+                      <button type="submit" className="btn btn-primary">
                         Kaydet
                       </button>
                     </div>

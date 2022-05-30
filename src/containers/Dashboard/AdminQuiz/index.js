@@ -108,7 +108,7 @@ const AdminQuiz = () => {
       </div>
 
       <div
-        class="modal fade"
+        className="modal fade"
         id="quizFormModal"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
@@ -116,15 +116,15 @@ const AdminQuiz = () => {
         aria-labelledby="quizFormModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="quizFormModalLabel">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="quizFormModalLabel">
                 Sınav Ekle
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
@@ -143,8 +143,8 @@ const AdminQuiz = () => {
                 setFieldValue,
               }) => (
                 <Form>
-                  <div class="modal-body">
-                    <div class="mb-3">
+                  <div className="modal-body">
+                    <div className="mb-3">
                       <FileUploader
                         id="imgSource"
                         label="Image"
@@ -155,13 +155,13 @@ const AdminQuiz = () => {
                         <small>{errors.image}</small>
                       ) : null}
                     </div>
-                    <div class="mb-3">
+                    <div className="mb-3">
                       <label className="form-label">Sınav Adı</label>
                       <input
                         type="text"
                         name="name"
                         onChange={handleChange}
-                        class="form-control"
+                        className="form-control"
                       />
                       {errors.name && touched.name ? (
                         <small>{errors.name}</small>
@@ -172,19 +172,19 @@ const AdminQuiz = () => {
                       <textarea
                         name="description"
                         onChange={handleChange}
-                        class="form-control"
+                        className="form-control"
                       ></textarea>
                     </div>
                   </div>
-                  <div class="modal-footer">
+                  <div className="modal-footer">
                     <button
                       type="button"
-                      class="btn btn-secondary"
+                      className="btn btn-secondary"
                       data-bs-dismiss="modal"
                     >
                       Close
                     </button>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" className="btn btn-primary">
                       Kaydet
                     </button>
                   </div>

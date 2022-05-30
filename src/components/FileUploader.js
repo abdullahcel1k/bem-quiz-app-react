@@ -26,7 +26,7 @@ const FileUploader = ({ id, label, fieldName, setFieldValue }) => {
   };
   return (
     <>
-      <label htmlFor={id} class="form-label">
+      <label htmlFor={id} className="form-label">
         {label}
       </label>
       <input
