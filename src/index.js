@@ -10,8 +10,10 @@ import { PersistGate } from "redux-persist/integration/react";
 import store from "./store";
 import persistStore from "redux-persist/es/persistStore";
 import { ToastContainer } from "react-toastify";
+import { setupAxios } from "./utils/helpers/tokenInterceptor";
 
 let persistor = persistStore(store);
+setupAxios(store);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

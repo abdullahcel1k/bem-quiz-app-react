@@ -1,13 +1,15 @@
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../../../components/Table";
 import { AdminQuizModel } from "../../../utils/forms/admin-quiz/initialModel";
 import { AdminQuizValidationScheme } from "../../../utils/forms/admin-quiz/validationScheme";
 import { FaPlusCircle, FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import FileUploader from "../../../components/FileUploader";
+import { Delete, Get, Post } from "../../../utils/helpers/requestHelpers";
 
 const AdminQuiz = () => {
+  const [data, setData] = useState([]);
   const columns = React.useMemo(
     () => [
       {
@@ -16,16 +18,22 @@ const AdminQuiz = () => {
       },
       {
         Header: "Sınav Resmi",
-        accessor: "quizImage",
-        Cell: (props) => <img src={props.value} width="100" height="100" />,
+        accessor: "imgSource",
+        Cell: (props) => (
+          <img
+            src={process.env.REACT_APP_FILE_URL + props.value}
+            width="100"
+            height="100"
+          />
+        ),
       },
       {
         Header: "Sınav Adı",
-        accessor: "quizName",
+        accessor: "name",
       },
       {
         Header: "Toplam Soru",
-        accessor: "totalQuestion",
+        accessor: "questions.length",
       },
       {
         Header: "",
@@ -42,7 +50,12 @@ const AdminQuiz = () => {
               <button className="btn btn-warning ms-3">
                 <FaEdit />
               </button>
-              <button className="btn btn-danger ms-3">
+              <button
+                className="btn btn-danger ms-3"
+                onClick={() => {
+                  _deleteQuiz(props.row.values.id);
+                }}
+              >
                 <FaTrashAlt />
               </button>
             </div>
@@ -56,41 +69,29 @@ const AdminQuiz = () => {
     []
   );
 
-  const data = [
-    {
-      id: 5,
-      quizImage: "/images/quiz.webp",
-      quizName: "Sınav 1",
-      totalQuestion: 9,
-    },
-    {
-      id: 6,
-      quizImage: "/images/quiz.webp",
-      quizName: "Sınav 1",
-      totalQuestion: 11,
-    },
+  const fetchExams = async () => {
+    let result = await Get("Exams");
+    if (result.isSuccess) setData(result.data);
+  };
 
-    {
-      id: 3,
-      quizImage: "/images/quiz.webp",
-      quizName: "Sınav 1",
-      totalQuestion: 16,
-    },
+  const saveExam = async (reqBody) => {
+    const result = await Post("Exams", reqBody);
+    if (result.isSuccess) {
+      document.querySelector("[data-bs-dismiss]").click();
+      fetchExams();
+    }
+  };
 
-    {
-      id: 4,
-      quizImage: "/images/quiz.webp",
-      quizName: "Sınav 1",
-      totalQuestion: 24,
-    },
+  const _deleteQuiz = async (id) => {
+    const result = await Delete("Exams/" + id);
+    if (result.isSuccess) {
+      fetchExams();
+    }
+  };
 
-    {
-      id: 1,
-      quizImage: "/images/quiz.webp",
-      quizName: "Sınav 1",
-      totalQuestion: 21,
-    },
-  ];
+  useEffect(() => {
+    fetchExams();
+  }, []);
 
   return (
     <div className="row">
@@ -132,7 +133,10 @@ const AdminQuiz = () => {
             <Formik
               initialValues={AdminQuizModel}
               validationSchema={AdminQuizValidationScheme}
-              onSubmit={(values, { setSubmitting, resetForm }) => {}}
+              onSubmit={(values, { setSubmitting, resetForm }) => {
+                saveExam(values);
+                resetForm({ values: AdminQuizModel });
+              }}
             >
               {({
                 isSubmitting,

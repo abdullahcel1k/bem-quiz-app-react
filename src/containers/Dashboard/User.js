@@ -128,14 +128,14 @@ const User = () => {
     },
   ];
 
-  const fetchData = async () => {
-    const result = await Get("Users");
-    console.log(result);
-  };
-
   useEffect(() => {
     fetchData();
-  });
+  }, []);
+  
+  const fetchData = async () => {
+    await Get("Users");
+  };
+
   return (
     <div className="row">
       <div className="col-12 mt-5">

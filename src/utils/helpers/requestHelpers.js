@@ -7,8 +7,9 @@ const API = process.env.REACT_APP_API_URL;
 const defaultHeaders = {
   "Content-Type": "application/json",
 };
+
 const exceptionHandler = (err) => {
-  if (err.response.data) {
+  if (err?.response?.data) {
     const { data, isSuccess, message } = err.response.data;
     errorToast(message);
     return new ResponseModel(data, isSuccess, message);
@@ -20,7 +21,7 @@ const exceptionHandler = (err) => {
 
 const Get = (url, headers) => {
   return axios
-    .get(API + url, {
+    .get(url, {
       headers: headers ? { ...defaultHeaders, ...headers } : defaultHeaders,
     })
     .then((response) => {
@@ -38,7 +39,7 @@ const Get = (url, headers) => {
 
 const Post = (url, reqBody, headers) => {
   return axios
-    .post(API + url, reqBody, {
+    .post(url, reqBody, {
       headers: headers ? { ...defaultHeaders, ...headers } : defaultHeaders,
     })
     .then((response) => {
@@ -56,7 +57,7 @@ const Post = (url, reqBody, headers) => {
 
 const Put = (url, reqBody, headers) => {
   return axios
-    .put(API + url, reqBody, {
+    .put(url, reqBody, {
       headers: headers ? { ...defaultHeaders, ...headers } : defaultHeaders,
     })
     .then((response) => {
@@ -74,7 +75,7 @@ const Put = (url, reqBody, headers) => {
 
 const Delete = (url, headers) => {
   return axios
-    .delete(API + url, {
+    .delete(url, {
       headers: headers ? { ...defaultHeaders, ...headers } : defaultHeaders,
     })
     .then((response) => {

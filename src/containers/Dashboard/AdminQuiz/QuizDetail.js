@@ -1,12 +1,19 @@
 import { FieldArray, Form, Formik, useFormikContext } from "formik";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Table from "../../../components/Table";
+import { Get, Post } from "../../../utils/helpers/requestHelpers";
 
 const QuizDetail = () => {
   const { id } = useParams();
+  const [questions, setQuestions] = useState([]);
 
   let answerObject = { text: "", isCorrect: false };
+
+  const getQuestions = async () => {
+    const result = await Get("Exams/getDetail/" + id);
+    if (result.isSuccess) setQuestions(result.data.questions);
+  };
 
   const Answers = ({ answersArrayHelpers }) => {
     const { values } = useFormikContext();
@@ -90,12 +97,12 @@ const QuizDetail = () => {
           <textarea
             type="text"
             className="form-control"
-            name="question"
-            value={values.question}
+            name="label"
+            value={values.label}
             onChange={handleChange}
           ></textarea>
         </div>
-        <div key={values.question}>
+        <div key={values.label}>
           <br />
           <h3>Cevap Ekle</h3>
           <hr className="line" />
@@ -120,52 +127,29 @@ const QuizDetail = () => {
       },
       {
         Header: "Soru Metni",
-        accessor: "question",
+        accessor: "label",
       },
       {
         Header: "Cevap Sayısı",
-        accessor: "answerCount",
+        accessor: "answers.length",
+      },
+      {
+        Header: "",
+        accessor: "edit",
+        Cell: () => {},
       },
     ],
     []
   );
 
-  const data = [
-    {
-      id: 5,
-      question:
-        "Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1",
-      answerCount: 5,
-    },
+  const _saveQuestion = async (reqBody) => {
+    const result = await Post("Exams/" + id + "/addquestion", reqBody);
+    console.log(result);
+  };
 
-    {
-      id: 5,
-      question:
-        "Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1",
-      answerCount: 5,
-    },
-
-    {
-      id: 5,
-      question:
-        "Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1",
-      answerCount: 5,
-    },
-
-    {
-      id: 5,
-      question:
-        "Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1",
-      answerCount: 5,
-    },
-
-    {
-      id: 5,
-      question:
-        "Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1Soru metni 1 Soru metni 1",
-      answerCount: 5,
-    },
-  ];
+  useEffect(() => {
+    getQuestions();
+  }, []);
 
   return (
     <>
@@ -181,7 +165,7 @@ const QuizDetail = () => {
         </div>
 
         <div className="col-12 mt-5">
-          <Table columns={columns} data={data} />
+          <Table columns={columns} data={questions} />
         </div>
         <div
           className="modal fade"
@@ -206,8 +190,11 @@ const QuizDetail = () => {
                 ></button>
               </div>
               <Formik
-                initialValues={{ question: "", answers: [] }}
+                initialValues={{ label: "", answers: [] }}
                 enableReinitialize={true}
+                onSubmit={(values, { setSubmitting, resetForm }) => {
+                  _saveQuestion(values);
+                }}
               >
                 {({ values, handleChange }) => (
                   <Form>

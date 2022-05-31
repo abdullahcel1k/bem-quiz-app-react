@@ -1,8 +1,14 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
+import { authLogout } from "../../store/authStore";
 import "./dashboard.scss";
 
 const DashboardLayout = () => {
+  const dispatch = useDispatch();
+  const _signOut = () => {
+    dispatch(authLogout());
+  };
   return (
     <>
       <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -28,7 +34,13 @@ const DashboardLayout = () => {
         />
         <div className="navbar-nav">
           <div className="nav-item text-nowrap">
-            <a className="nav-link px-3" href="#">
+            <a
+              className="nav-link px-3"
+              href="#"
+              onClick={() => {
+                _signOut();
+              }}
+            >
               Sign out
             </a>
           </div>

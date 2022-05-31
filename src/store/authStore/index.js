@@ -3,6 +3,8 @@ import { authCreateToken } from "../../utils/services/auth";
 
 const _authLogout = (state, action) => {
   state.token = undefined;
+  state.role = undefined;
+  window.history.pushState({}, "", "/");
 };
 
 const authSlice = createSlice({
