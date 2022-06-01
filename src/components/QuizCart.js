@@ -8,7 +8,7 @@ const QuizCart = ({ quiz }) => {
    <div className="card-body text-center">
     <h5 className="card-title">{quiz.name}</h5>
     <p className="card-text">{quiz.description}</p>
-    <Link to={'quiz/' + quiz.slug} className="btn btn-primary">Let's Start</Link>
+    <Link to={'quiz?slug=' + quiz.slug + "&order=1"} className="btn btn-primary">Let's Start</Link>
    </div>
   </div>
  )

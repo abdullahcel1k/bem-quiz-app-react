@@ -1,91 +1,45 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Get } from "../../utils/helpers/requestHelpers";
+import Question from "./Question";
+import Optic from "./Optic";
 import "./quiz.scss";
 
 const Quiz = () => {
-  const { slug } = useParams();
-  const [question, setQuestion] = useState(null);
+  const params = new URLSearchParams(window.location.search);
+  const [order, setOrder] = useState(params.get("order"));
+  const navigate = useNavigate();
 
-  const selectedChoice = () => {};
+  const [data, setData] = useState(null);
 
   const startExam = async () => {
-    let query = "Exams/startExam?slug=" + slug;
-    if (question) query += "&order=" + parseInt(question.order + 1);
+    let query = "Exams/startExam?" + params.toString();
     const result = await Get(query);
-    if (result.isSuccess) setQuestion(result.data.questions[0]);
+    if (result.isSuccess) setData(result.data);
+  };
+
+  const nextQuestion = () => {
+    const nextOrder = parseInt(order) + 1;
+    setOrder(nextOrder);
+    params.set("order", nextOrder);
+    navigate("/quiz?" + params.toString());
   };
 
   useEffect(() => {
     startExam();
-  }, []);
+  }, [order]);
 
-  return question ? (
+  return data ? (
     <section className="quiz__container">
-      <h3 className="quiz__title">Quiz Title</h3>
+      <h3 className="quiz__title">{data.exam.name}</h3>
       <section className="quiz__body">
-        <section className="quiz__page">
-          <div id="quizPageBody">
-            <div className="quiz__question">
-              <h3>Question {question.order}</h3>
-              <p>{question.label}</p>
-            </div>
-            <div className="quiz__answers">
-              {question.answers.map((answer) => {
-                return (
-                  <div
-                    className="quiz__answers-answer"
-                    onClick={() => {
-                      selectedChoice();
-                    }}
-                  >
-                    {answer.text}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="quiz__navigation">
-            <button className="navigation_btn" onclick="">
-              Prev
-            </button>
-            <button
-              className="navigation_btn ml-2"
-              onClick={() => {
-                startExam();
-              }}
-            >
-              Next
-            </button>
-          </div>
-        </section>
-        <section className="quiz__optic">
-          <div className="quiz__optic-header">
-            <span>Question 1/8</span>
-            <span>Need Help?</span>
-          </div>
-          <div className="quiz__optic-viewer">
-            <div className="item done">
-              <button>1</button>
-            </div>
-            <div className="item done">
-              <button>2</button>
-            </div>
-            <div className="item done">
-              <button>3</button>
-            </div>
-            <div className="item active">
-              <button>34</button>
-            </div>
-            <div className="item">
-              <button>13</button>
-            </div>
-          </div>
-        </section>
+        <Question question={data.question} nextQuestion={nextQuestion} />
+        <Optic exam={data.exam} order={order} />
       </section>
     </section>
-  ) : null;
+  ) : (
+    <p>.....</p>
+  );
 };
 
 export default Quiz;

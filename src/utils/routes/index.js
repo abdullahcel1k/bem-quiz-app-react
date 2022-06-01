@@ -44,7 +44,7 @@ const PageRoutes = () => {
         <Route element={<Layout />}>
           <Route exact path="/" element={<Home />} />
           <Route
-            path="/quiz/:slug"
+            path="/quiz"
             element={
               <RequireAuth>
                 <Quiz />

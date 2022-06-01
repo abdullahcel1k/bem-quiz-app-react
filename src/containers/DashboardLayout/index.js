@@ -12,9 +12,9 @@ const DashboardLayout = () => {
   return (
     <>
       <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">
-          Company name
-        </a>
+        <Link className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" to="/admin">
+          QuizApp
+        </Link>
         <button
           className="navbar-toggler position-absolute d-md-none collapsed"
           type="button"
@@ -54,16 +54,16 @@ const DashboardLayout = () => {
           <div className="position-sticky pt-3">
             <ul className="nav flex-column">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <Link className="nav-link" activeClassName="active" aria-current="page" to="/admin">
                   <span
                     data-feather="home"
                     className="align-text-bottom"
                   ></span>
                   Dashboard
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/admin/quiz">
+                <Link className="nav-link" activeClassName="active" to="/admin/quiz">
                   <span
                     data-feather="file"
                     className="align-text-bottom"
@@ -72,7 +72,7 @@ const DashboardLayout = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/admin/users">
+                <Link className="nav-link" activeClassName="active" to="/admin/users">
                   <span
                     data-feather="shopping-cart"
                     className="align-text-bottom"
