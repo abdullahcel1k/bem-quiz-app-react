@@ -33,7 +33,7 @@ const Quiz = () => {
     <section className="quiz__container">
       <h3 className="quiz__title">{data.exam.name}</h3>
       <section className="quiz__body">
-        <Question question={data.question} nextQuestion={nextQuestion} />
+        <Question question={data.question} nextQuestion={nextQuestion} exam={data.exam} />
         <Optic exam={data.exam} order={order} />
       </section>
     </section>
